@@ -1,0 +1,310 @@
+{%load static%}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=spgtjv6ojs"></script>
+    <title>Document</title>
+    <style>
+    body{
+        font-family:TmonMonsori;
+        font-size:20px;
+        margin:0px;
+        padding:0px;
+        width: 100%;
+        text-align: center;
+    }
+
+    div.container2{
+        padding-top: 6%;
+        display: inline-block;
+        width: 100%;
+    }
+
+    #content {
+        {%if selectedfoodimg%}
+        background-image: url("{{selectedfoodimg}}");
+        {%else%}
+        background-image: url("{%static 'noimage.jpg'%}"); /*없을경우*/
+        {%endif%}
+        background-size: cover;
+        position: relative;
+        padding-top: 35%;
+        text-align: center;
+        font-family:TmonMonsori;
+        border-top-left-radius:2%;
+        border-top-right-radius:2%;
+        border-bottom-style: none;
+    }
+
+    #info {
+        padding:25px;
+        text-align: center;
+        border-top-style: none;
+        border-bottom-left-radius:2%;
+        border-bottom-right-radius:2%;
+    }
+
+    #selected_menu{
+        padding: 30px;
+        text-align: center;
+        background-color: rgba( 255, 255, 255, 0.7 );
+    }
+
+    table {
+        margin: auto;
+    }
+
+    #menu {
+        text-align: center;
+    }
+
+    .orange {
+        color: #fef4e9;
+        border: solid 1px #da7c0c;
+        background: #f47c20;
+        background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
+        background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
+        filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+    }
+    .orange:hover {
+        background: #f47c20;
+        background: -webkit-gradient(linear, left top, left bottom, from(#f88e11), to(#f06015));
+        background: -moz-linear-gradient(top,  #f88e11,  #f06015);
+        filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f88e11', endColorstr='#f06015');
+    }
+    .orange:active {
+        color: #fcd3a5;
+        background: -webkit-gradient(linear, left top, left bottom, from(#f47a20), to(#faa51a));
+        background: -moz-linear-gradient(top,  #f47a20,  #faa51a);
+        filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f47a20', endColorstr='#faa51a');
+    }
+
+    .white {
+        color: #fef4e9;
+        border: solid 1px #7e7d7d;
+        background: #b6b6b6;
+        background: -webkit-gradient(linear, left top, left bottom, from(#b6b6b6), to(#b6b6b6));
+        background: -moz-linear-gradient(top,  #b6b6b6,  #b6b6b6);
+        filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+    }
+    .white:hover {
+        background: #7e7d7d;
+        background: -webkit-gradient(linear, left top, left bottom, from(#757474), to(#757474));
+        background: -moz-linear-gradient(top,  #757474,  #757474);
+        filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f88e11', endColorstr='#f06015');
+    }
+    .white:active {
+        color: #b6b6b6;
+        background: -webkit-gradient(linear, left top, left bottom, from(#b6b6b6), to(#b6b6b6));
+        background: -moz-linear-gradient(top,  #b6b6b6,  #b6b6b6);
+        filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f47a20', endColorstr='#faa51a');
+    }
+
+    .button {
+        position: fixed;
+        bottom: 20px;
+        right: 15px;
+        display: inline-block;
+        outline: none;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        font: 14px/100% TmonMonsori, TmonMonsori, TmonMonsori;
+        padding: .8em 2em 1em;
+        text-shadow: 0 1px 1px rgba(0,0,0,.3);
+        -webkit-border-radius: .5em; 
+        -moz-border-radius: .5em;
+        border-radius: .5em;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+        -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+        box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    }
+    .button:hover {
+        text-decoration: none;
+    }
+    .button:active {
+        position: fixed;
+        bottom: 20px;
+        right: 15px;
+    }
+
+    .buttonback {
+        position: fixed;
+        bottom: 20px;
+        right: 120px;
+        display: inline-block;
+        outline: none;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        font: 14px/100% TmonMonsori, TmonMonsori, TmonMonsori;
+        padding: .8em 1.5em 1em;
+        text-shadow: 0 1px 1px rgba(0,0,0,.3);
+        -webkit-border-radius: .5em; 
+        -moz-border-radius: .5em;
+        border-radius: .5em;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+        -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+        box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    }
+    .buttonback:hover {
+        text-decoration: none;
+    }
+    .buttonback:active {
+        position: fixed;
+        bottom: 20px;
+        right: 120px;
+    }
+    
+    @font-face { font-family: 'TmonMonsori'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/TmonMonsori.woff') format('woff'); font-weight:lighter; font-style:normal; }
+
+    @media screen and (min-width:800px){
+        .wrapper {
+            padding: 0 20%;
+        }
+
+        #menu_padding{
+            padding: 0 2px;
+        }
+
+        div.container2{
+        padding-top: 3%;
+        width: 52%;
+        }
+        #info {
+        border-style:solid;
+        border-color: orange;
+        padding:25px;
+        text-align: center;
+        border-top-style: none;
+        border-bottom-left-radius:2%;
+        border-bottom-right-radius:2%;
+        }
+        #content {
+        border-style: solid;
+        border-color: orange;
+        }
+
+    }
+
+
+    </style>
+
+<script>
+
+function doDisplay(){
+    var con = document.getElementById("map");
+    if(con.style.display=='none'){
+        con.style.display = 'block';
+    }else{
+        con.style.display = 'none';
+    }
+}
+
+function doDisplay2(){
+    var con = document.getElementById("menu");
+    if(con.style.display=='none'){
+        con.style.display = 'block';
+    }else{
+        con.style.display = 'none';
+    }
+}
+
+function move(){
+        location.replace("../Fmenu");
+    }
+
+history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+};
+
+</script>
+
+
+</head>
+<body>
+    <div class="container2">
+        <div class="main">
+                <div class="wrapper">   
+                    <div id="content">
+                    <div id="selected_menu">
+                    {%for foods in foodmenus.all%}
+                            {{foods.Menu}} <br>
+                            {{foods.Price}} 원
+                    {%endfor%}
+                    </div>
+                    </div>
+        
+        <div id="info">
+        나와 가게까지의 거리 : {{me_to_store}} M<br><br>
+
+        <a href="javascript:doDisplay();">가게위치 보기</a><br>
+        <div id="map" style="width:100%;height:250px;border-radius:10%;display:none;"></div>
+        <script>  
+            var mapOptions = {
+                center: new naver.maps.LatLng({{middle_latitude}}, {{middle_longitude}}),
+                zoom: {{zoom}}
+            };
+        
+            var map = new naver.maps.Map('map', {
+                center: new naver.maps.LatLng({{middle_latitude}}, {{middle_longitude}}),
+                zoom: {{zoom}}
+            });
+        
+            var marker = new naver.maps.Marker({
+                position: new naver.maps.LatLng({{store_latitude}}, {{store_longitude}}),
+                map: map
+            });
+            
+            var HOME_PATH = window.HOME_PATH || '.';
+            var position33 = new naver.maps.LatLng({{get_my_latitude}}, {{get_my_longitude}});
+        
+            var markerOptions = {
+                position: position33,
+                map: map,
+                icon: {
+                    url: "{% static 'me2.png' %}",
+                    size: new naver.maps.Size(24, 32),
+                    origin: new naver.maps.Point(0, 0),
+                    anchor: new naver.maps.Point(12, 32)
+                }
+            };
+        
+            var marker = new naver.maps.Marker(markerOptions);
+            </script>
+
+            <br><br>
+
+        {%for stores in storemenus.all%}
+            가게명 : {{stores.StoreName}}<br>
+            주소 : {{stores.StoreAddress}}<br>
+            전화번호 : {{stores.StorePhone}}<br><br>
+        {%endfor%}
+        
+        <a href="javascript:doDisplay2();">모든메뉴 보기</a><br><br>
+
+        <div id="menu" style="display: none;">
+        가게 모든 메뉴<br>
+        {%for all_foods in foodmenus_all.all%}
+        <div id="menu_padding">{{all_foods.Menu}} ---- {{all_foods.Price|intcomma}} &#8361</div><br>
+        {%endfor%}
+        </div>
+        </div>
+        <br><br>
+        <form method="POST" action="{%url 'Fmenu'%}">
+            {%csrf_token%}
+        <input class="buttonback white" type="submit" value="뒤로가기">
+        </form>
+
+        <a class="button orange" onclick="window.location.reload();">재추첨</a>
+
+
+        <br><br>
+    </div>
+</body>
+</html>

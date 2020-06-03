@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+            function maxLengthCheck(object){
+                if (object.value.length > object.maxLength){
+                    object.value = object.value.slice(0, object.maxLength);
+                }    
+            }
+    </script>
+</head>
+<body>
+<form method="POST" action="{%url 'Ownerupdate'%}">
+        {%csrf_token%}
+    이름 : <input type="text" name="ownername" value="{{ownername}}" required><br>
+    사장님 전화번호 : <input type="number" name="ownerphone1" maxlength="3" oninput="maxLengthCheck(this)" value="{{ownerphone1}}" required>-<input type="number" name="ownerphone2" maxlength="4" oninput="maxLengthCheck(this)" value="{{ownerphone2}}" required>-<input type="number" name="ownerphone3" maxlength="4" oninput="maxLengthCheck(this)" value="{{ownerphone3}}" required><br>
+    가게 이름 : <input type="text" name="store_name" value="{{ownerstorename}}" required><br>
+    가게 번호(사용자가 보일 번호) : <input type="number" name="store_phone1" maxlength="3" oninput="maxLengthCheck(this)" value="{{storephone1}}" required>-<input type="number" name="store_phone2" maxlength="4" oninput="maxLengthCheck(this)" value="{{storephone2}}" required>-<input type="number" name="store_phone3" maxlength="4" oninput="maxLengthCheck(this)" value="{{storephone3}}" required><br>
+    가게 주소 : <input type="text" name="store_address" value="{{ownerstoreaddress}}" required><br>
+    가게 위도(소수점6자리까지 소수점표시 필요) : <input type="number" step="any" name="store_latitude" value="{{ownerlatitude}}" maxlength="10" oninput="maxLengthCheck(this)" required><br>
+    가게 경도(소수점6자리까지 소수점표시 필요) : <input type="number" step="any" name="store_longitude" value="{{ownerlongitude}}" maxlength="10" oninput="maxLengthCheck(this)" required><br><br>
+    <input type="submit" value="수정하기">
+</form>
+</body>
+</html>

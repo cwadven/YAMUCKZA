@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        function maxLengthCheck(object){
+            if (object.value.length > object.maxLength){
+                object.value = object.value.slice(0, object.maxLength);
+            }    
+        }
+    </script>
+    <style>
+        html, body{
+            text-align: center;
+        }
+        div{
+            color:blue; 
+            font-size:9px;
+        }
+        .Explanation{
+            font-size:10px;
+            color:blue;
+            text-align:center;
+        }
+
+        table.type08 {
+            border-collapse: collapse;
+            text-align: left;
+            line-height: 1.5;
+            border-left: 1px solid #ccc;
+            margin: auto;
+            width:-webkit-fill-available;
+        }
+        
+        table.type08 thead th {
+            padding: 10px;
+            font-weight: bold;
+            border-top: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+            font-size: 9px;
+            border-bottom: 2px solid #c00;
+            background: #dcdcd1;
+        }
+        table.type08 tbody th {
+            width: 150px;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 9px;
+            vertical-align: top;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            background: #ececec;
+        }
+
+        table.type08 td {
+            width: 350px;
+            padding: 10px;
+            vertical-align: top;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
+
+
+        table.type09 {
+            border-collapse: collapse;
+            text-align: left;
+            line-height: 1.5;
+            border-left: 1px solid #ccc;
+            margin: 20px 10px;
+            position:absolute;
+            left:50%;
+        }
+        
+        table.type09 thead th {
+            padding: 10px;
+            font-weight: bold;
+            border-top: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+            border-bottom: 2px solid #c00;
+            background: #dcdcd1;
+        }
+        table.type09 tbody th {
+            width: 150px;
+            padding: 10px;
+            font-weight: bold;
+            vertical-align: top;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            background: #ececec;
+        }
+        table.type09 td {
+            width: 350px;
+            padding: 10px;
+            vertical-align: top;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .phone {
+            width: 28%;
+        }
+
+        @media screen and (min-width:480px){
+            table.type08 {
+                padding: 0 20%;
+                width:auto;
+            }
+
+            table.type08 thead th {
+                padding: 10px;
+                font-weight: bold;
+                border-top: 1px solid #ccc;
+                border-right: 1px solid #ccc;
+                font-size: 15px;
+                border-bottom: 2px solid #c00;
+                background: #dcdcd1;
+            }
+            table.type08 tbody th {
+                width: 150px;
+                padding: 10px;
+                font-weight: bold;
+                font-size: 15px;
+                vertical-align: top;
+                border-right: 1px solid #ccc;
+                border-bottom: 1px solid #ccc;
+                background: #ececec;
+            }
+            div{
+            color:blue; 
+            font-size:15px;
+            }
+        }
+
+        </style>
+
+</head>
+<body>
+    
+    <h1>사장 정보입력 페이지</h1>
+
+    <table class="type08">
+    <thead>
+    <tr>
+        <th scope="cols">타이틀</th>
+        <th scope="cols">내용</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <form method="POST" action="{%url 'Signup'%}">    
+            {%csrf_token%}
+        <th scope="row">아이디<br></th>
+        <td><input type="text" name="username" value="{{username}}" {{readonly}} required> <input type="submit" name="checksame" {{disable_thing}} value="중복확인"> <br>{{usernameerror}}</td>
+    </tr>
+    <tr> 
+        <th scope="row">비밀번호</th>
+        <td><input type="password" name="password1" value="{{password1}}" required></td>
+    </tr>
+    <tr>
+        <th scope="row">비밀번호 확인</th>
+        <td><input type="password" name="password2" value="{{password2}}" required><br>{{error}}</td>
+    </tr>
+    <tr>
+        <th scope="row">상세정보(필수)<br></th>
+        <td></td>
+    </tr>
+    <tr>
+        <th scope="row">사장님 이름</th>
+        <td><input type="text" name="ownername" value="{{ownername}}" required><br></td>
+    </tr>
+    <tr>
+        <th scope="row">사장님 전화번호</th>
+        <td><input class="phone" type="number" name="ownerphone1" value="{{ownerphone1}}" maxlength="3" oninput="maxLengthCheck(this)" required>-<input class="phone" type="number" name="ownerphone2" value="{{ownerphone2}}" maxlength="4" oninput="maxLengthCheck(this)" required>-<input class="phone" type="number" name="ownerphone3" value="{{ownerphone3}}" maxlength="4" oninput="maxLengthCheck(this)" required><br></td>
+    </tr>
+    <tr>
+        <th scope="row">가게 전화번호<br><div>사용자가 볼 전화번호</div></th>
+        <td><input class="phone" type="number" name="storephone1" value="{{storephone1}}" maxlength="3" oninput="maxLengthCheck(this)" required>-<input class="phone" type="number" name="storephone2" value="{{storephone2}}" maxlength="4" oninput="maxLengthCheck(this)" required>-<input class="phone" type="number" name="storephone3" value="{{storephone3}}" maxlength="4" oninput="maxLengthCheck(this)" required><br></td>
+    </tr>
+    <tr>
+        <th scope="row">가게 이름</th>
+        <td><input type="text" name="storename" value="{{storename}}" required><br></td>
+    </tr>
+    <tr>
+        <th scope="row">가게 주소</th>
+        <td><input type="text" name="storeaddress" value="{{storeaddress}}" required><br></td>
+    </tr>
+    <tr>
+        <th scope="row">가게 위도<div>소수점6자리까지 표시</div></th>
+        <td><input type="number" step="any" onkeyup="imsi(this)" value="{{storelatitude}}" maxlength="10" oninput="maxLengthCheck(this)" name="storelatitude" required><br></td>
+    </tr>
+    <tr>
+        <th scope="row">가게 경도<div>소수점6자리까지 표시</div></th>
+        <td><input type="number" step="any" onkeyup="imsi(this)" value="{{storelongitude}}" maxlength="10" oninput="maxLengthCheck(this)" name="storelongitude" required><br></td>
+    </tr>
+    <tr>
+        <th scope="row">항목명</th>
+        <td><input type="submit" name="signupforme" value="회원가입">{{checkthesame}}</td>
+    </tr>
+    <tr>
+        <th scope="row">※추가정보</th>
+        <td>승인 절차까지 최대 하루의 시간이 걸립니다! 승인후 메뉴를 작성하실 수 있습니다!</td>
+    </tr>
+
+    </tbody>
+</form>
+    <!-- <table class="type09">
+        <thead>
+        <tr>
+            <th scope="cols">타이틀</th>
+            <th scope="cols">내용</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">항목명</th>
+            <td>내용이 들어갑니다.</td>
+        </tr>
+        <tr>
+            <th scope="row">항목명</th>
+            <td>내용이 들어갑니다.</td>
+        </tr>
+        <tr>
+            <th scope="row">항목명</th>
+            <td>내용이 들어갑니다.</td>
+        </tr>
+        </tbody> -->
+    </table>
+</table>
+</body>
+</html>

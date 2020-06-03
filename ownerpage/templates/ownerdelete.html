@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>사장님계정 삭제</h1>
+<form method="POST">
+    {% csrf_token %}
+    <p>정말로 회원탈퇴하시겠습니까?</p>
+    "탈퇴"를 적고 탈퇴버튼을 클릭하시면 탈퇴가 완료 됩니다.<br>
+    탈퇴를 하실 경우 지금까지 적은 메뉴와 정보들은 전부 삭제되오니 참고 하세요.<br>
+    {{error}}<br>
+    <input type="text" name="confirm" required/><br>
+    <input type="submit" value="탈퇴"/>
+</form>
+</body>
+</html>

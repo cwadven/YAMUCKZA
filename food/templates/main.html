@@ -1,0 +1,323 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en" style="height:100%;margin:0px;padding:0px;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans&display=swap" rel="stylesheet">
+
+<style>
+
+    @media screen and (min-width:480px){    
+    body {
+        margin:0px;
+        padding:0px;
+        height:100%;
+    }
+    #container {
+        display: flex;
+        height: 100%;
+    }
+
+    #box-left {
+        background:"";
+        flex: 3;
+    }
+    #box-center {
+        background:"";
+        flex: 3;
+        text-align: center;
+    }
+    #box-right {
+        background: "";
+        flex: 3;
+        text-align: right;
+    }
+
+    #dessertstyle {
+        width:100%;
+        height:50%;
+    }
+
+    #foodstyle {
+        width:100%;
+        height:50%;
+    }
+
+    #main_food_image{
+        position:initial;
+        width:100%;
+        background-image:url({%static 'aaa.jpg'%});
+        height:100%;
+        background-size:cover;
+    }
+
+    #main_dessert_image{
+        position: initial;
+        width:100%;
+        background-image:url({%static 'bbb.jpg'%});
+        height:100%;
+        background-size:cover;
+    }
+
+    #foodpage{
+        display:table;
+        text-align:center;
+        width:100%;
+        height:100%;
+        background-color: rgba(0, 0, 0, 0);
+        position: relative;
+        -webkit-transition:background-color 1s, -webkit-transform 1s;
+        transition:background-color 1s, transform 1s;
+    }
+    
+    #foodpage:hover {
+        background-color:rgba(0, 0, 0, 0);
+    }
+
+    #dessertpage{
+        display:table;
+        text-align:center;
+        width:100%;
+        height:100%;
+        background-color:rgba(0, 0, 0, 0);
+        position: relative;
+        -webkit-transition:background-color 1s, -webkit-transform 1s;
+        transition:background-color 1s, transform 1s;
+    }
+    
+    #dessertpage:hover {
+        background-color:rgba(0, 0, 0, 0);
+    }
+
+    #random_button{
+        display:inline-block;
+        padding:3%;
+        width:30%;
+        border-style:groove;
+        border-radius:10%;
+        border-width:0px;
+        color:black;
+        background-color:rgba(255, 255, 255, 0.541);
+        font-family: 'Black Han Sans', sans-serif;
+        font-size:1vw;
+        -webkit-transition:padding 1s, -webkit-transform 1s, font-size 1s, font-weight 1s, border-width 0.5s;
+        transition:padding 1s, transform 1s, font-size 1s, font-weight 1s, border-width 0.5s;
+    }
+
+    #random_button:hover{
+        padding:4%;
+        font-size:1.2vw;
+        border-width:0px;
+        transform: rotate( -9deg );
+    }
+    
+    #foodpage:hover > .pulse img{  /*hover했을때 다른 녀석이 적용되게 하는 방법 > 씀 */
+        animation: pulse 1s infinite;
+        animation-timing-function: linear;   
+    }
+
+    #dessertpage:hover > .pulse img{  /*hover했을때 다른 녀석이 적용되게 하는 방법 > 씀 */
+        animation: pulse 1s infinite;
+        animation-timing-function: linear;   
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1);}
+        100% { transform: scale(1); }
+    }
+    
+    #pulse {
+        display:table-cell;
+        vertical-align:middle;
+        text-align:center
+    }
+    
+    #pulse img {
+        vertical-align: middle;
+        width:75%;
+    }
+
+    #pulse img{
+        filter:drop-shadow(2px 4px 6px black);
+        -webkit-transition:pulse 1s;
+        transition:pulse 1s;
+    }
+
+    #pulse img:hover{ 
+        animation: pulse 1s infinite;
+        animation-timing-function: linear;   
+    }
+        }
+
+    @media screen and (max-width:480px){
+
+    
+    body {
+        margin:0px;
+        padding:0px;
+        height:100%;
+    }
+    #container {
+        display: flex;
+        height: 50%;
+    }
+
+    #dessertstyle {
+        width:100%;
+        height:100%;
+    }
+
+    #foodstyle {
+        width:100%;
+        height:100%;
+    }
+
+    #main_food_image{
+        position:initial;
+        width:100%;
+        background-image:url({%static 'aaa.jpg'%});
+        height:100%;
+        background-size:cover;
+    }
+
+    #main_dessert_image{
+        position: initial;
+        width:100%;
+        background-image:url({%static 'bbb.jpg'%});
+        height:100%;
+        background-size:cover;
+    }
+
+    #foodpage{
+        display:table;
+        text-align:center;
+        width:100%;
+        height:100%;
+        background-color: rgba(0, 0, 0, 0);
+        position: relative;
+        -webkit-transition:background-color 1s, -webkit-transform 1s;
+        transition:background-color 1s, transform 1s;
+    }
+    
+    #foodpage:hover {
+        background-color:rgba(0, 0, 0, 0);
+    }
+
+    #dessertpage{
+        display:table;
+        text-align:center;
+        width:100%;
+        height:100%;
+        background-color:rgba(0, 0, 0, 0);
+        position: relative;
+        -webkit-transition:background-color 1s, -webkit-transform 1s;
+        transition:background-color 1s, transform 1s;
+    }
+    
+    #dessertpage:hover {
+        background-color:rgba(0, 0, 0, 0);
+    }
+
+    #random_button{
+        display:inline-block;
+        padding:3%;
+        width:30%;
+        border-style:groove;
+        border-radius:10%;
+        border-width:0px;
+        color:black;
+        background-color:rgba(255, 255, 255, 0.541);
+        font-family: 'Black Han Sans', sans-serif;
+        -webkit-transition:padding 1s, -webkit-transform 1s, font-size 1s, font-weight 1s, border-width 0.5s;
+        transition:padding 1s, transform 1s, font-size 1s, font-weight 1s, border-width 0.5s;
+    }
+
+    #random_button:hover{
+        padding:4%;
+        border-width:0px;
+        transform: rotate( -9deg );
+    }
+    
+    #foodpage:hover > .pulse img{  /*hover했을때 다른 녀석이 적용되게 하는 방법 > 씀 */
+        animation: pulse 1s infinite;
+        animation-timing-function: linear;   
+    }
+
+    #dessertpage:hover > .pulse img{  /*hover했을때 다른 녀석이 적용되게 하는 방법 > 씀 */
+        animation: pulse 1s infinite;
+        animation-timing-function: linear;   
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1);}
+        100% { transform: scale(1); }
+    }
+    
+    #pulse {
+        display:table-cell;
+        vertical-align:middle;
+        text-align:center
+    }
+    
+    #pulse img {
+        vertical-align: middle;
+        width:75%;
+    }
+
+    #pulse img{
+        filter:drop-shadow(2px 4px 6px black);
+        -webkit-transition:pulse 1s;
+        transition:pulse 1s;
+    }
+
+    #pulse img:hover{ 
+        animation: pulse 1s infinite;
+        animation-timing-function: linear;   
+    }
+        }
+
+</style>
+    <link rel="stylesheet" type="text/css" media="screen and (max-device-width: 480px)" href="{% static 'css/main.css' %}" />
+    <title>메인화면</title>   
+        <div id='container'>
+            <div id='box-left'>
+
+            </div>
+            <div id='box-center'>
+            <div id="foodstyle">
+                <div id="main_food_image">
+                <div id="foodpage">
+                    <div id="pulse">
+                    <img style="" src="{%static 'foodlogo.png'%}"/>
+                    <a href="{%url 'Fmenu'%}">
+                        <div id="random_button">추첨하기</div>
+                    </a>
+                    </div>
+                </div>
+                </div>
+            </div>
+        
+            <div id="dessertstyle">
+                <div id="main_dessert_image">
+                <div id="dessertpage">
+                        <div id="pulse">
+                            <img style="" src="{%static 'dessertlogo.png'%}"/>
+                            <a href="#">
+                                <div id="random_button">추첨하기</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <div id='box-right'>
+
+            </div>
+
+        </div>

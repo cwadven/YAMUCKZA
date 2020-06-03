@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        function maxLengthCheck(object){
+            if (object.value.length > object.maxLength){
+                object.value = object.value.slice(0, object.maxLength);
+            }    
+        }
+    </script>
+    <style>
+        html, body{
+            text-align: center;
+            background-color:#fcd3a5;
+        }
+        .bl{
+            color:blue;
+            font-size:9px;
+        }
+        .Explanation{
+            font-size:10px;
+            color:blue;
+            text-align:center;
+        }
+
+        div#s_left{
+            width:10%;
+            height:700px;
+            background-color:#fcd3a5;
+            float:left;
+        }
+        #contents{
+            float:left;
+            margin-bottom: 50px;
+            margin-left:auto;
+            margin-right:auto;
+            width:80%;
+            height:100%;
+            background-color:#fcd3a5;            
+        }
+        div#s_right{
+            width:10%;
+            height:700px;
+            background-color:#fcd3a5;
+            float:left;
+        }
+        table.type08 {
+            margin-left:auto;
+            margin-right:auto;
+            margin-bottom:10px;
+            float:left;
+            width:100%;
+            border-collapse: collapse;
+            text-align: left;
+            line-height: 1.5;
+            border-left: 1px solid #ccc;
+            overflow:hidden
+        }
+        
+        table.type08 thead th {
+            padding: 10px;
+            font-weight: bold;
+            border-top: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+            font-size: 9px;
+            border-bottom: 2px solid #c00;
+            background: #dcdcd1;
+        }
+        table.type08 tbody th {
+            width: 1500px;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 9px;
+            vertical-align: top;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            background: #ececec;
+        }
+
+        table.type08 td {
+            width: 200px;
+            padding: 10px;
+            vertical-align: top;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            background: white;
+        }
+
+        table.type09 {
+            float:left;
+            margin-left:auto;
+                margin-right:auto;
+            border-collapse: collapse;
+            text-align: left;
+            line-height: 1.5;
+            border-left: 1px solid #ccc;
+            width:100%;
+        }
+        
+        table.type09 thead th {
+            padding: 10px;
+            font-weight: bold;
+            border-top: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+            border-bottom: 2px solid #c00;
+            background: #dcdcd1;
+        }
+        table.type09 tbody th {
+            width: 150px;
+            padding: 10px;
+            font-weight: bold;
+            vertical-align: top;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            background: #ececec;
+        }
+        table.type09 td {
+            width: 200px;
+            padding: 10px;
+            vertical-align: top;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            background: white;
+        }
+
+        .phone {
+            width: 28%;
+        }
+
+        
+
+        @media screen and (min-width:424px){
+            table.type08 {
+                float:left;
+                margin-left: auto;
+                margin-right: 1%;
+                width:100%;
+            }
+
+            table.type08 thead th {
+                padding: 10px;
+                font-weight: bold;
+                border-top: 1px solid #ccc;
+                border-right: 1px solid #ccc;
+                font-size: 15px;
+                border-bottom: 2px solid #c00;
+                background: #dcdcd1;
+            }
+            table.type08 tbody th {
+                width: 150px;
+                padding: 10px;
+                font-weight: bold;
+                font-size: 15px;
+                vertical-align: top;
+                border-right: 1px solid #ccc;
+                border-bottom: 1px solid #ccc;
+                background: #ececec;
+            }
+
+
+            table.type09 {
+                padding: 0 20%;
+                overflow:hidden;
+                width:100%;
+            }
+
+            table.type09 thead th {
+                padding: 10px;
+                font-weight: bold;
+                border-top: 1px solid #ccc;
+                border-right: 1px solid #ccc;
+                font-size: 15px;
+                border-bottom: 2px solid #c00;
+                background: #dcdcd1;
+            }
+            table.type09 tbody th {
+                width: 150px;
+                padding: 10px;
+                font-weight: bold;
+                font-size: 15px;
+                vertical-align: top;
+                border-right: 1px solid #ccc;
+                border-bottom: 1px solid #ccc;
+                background: #ececec;
+            }
+            .cent{
+                position: absolute; 
+                left:33%;
+            }
+        }
+
+        @media screen and (min-width:996px){
+            table.type08 {
+                float:left;
+                margin-left: auto;
+                margin-right: 1%;
+                width:100%;
+            }
+        }
+
+        </style>
+
+</head>
+<body>
+    <div id="s_left"></div>
+    <div id ="contents">
+
+    <h1>사장 정보수정 페이지</h1>
+    <input type="button" value="홈으로" onclick="location.href = '/' "/> <input type="button" value="회원정보수정" onclick="location.href = '/Ownerupdate' "/> <input type="button" value="비밀번호수정" onclick="location.href = '/Ownerpassword' "/> <input type="button" value="회원탈퇴" onclick="location.href = '/Ownerdelete' "/><br><br>
+
+    <table class="type08">
+    <thead>
+    <tr>
+        <th scope="cols">사장님 / 가게 정보</th>
+        <th scope="cols">내용</th>
+    </tr>
+    </thead>
+    {%for profiles in profile.all%}
+    <tbody>
+    <tr>
+        <th scope="row">아이디<br></th>
+        <td>{{profiles.user}}</td>
+    </tr>
+    <tr> 
+        <th scope="row">이름</th>
+        <td>{{profiles.OwnerName}}</td>
+    </tr>
+    <tr>
+        <th scope="row">사장님 전화번호</th>
+        <td>{{profiles.OwnerPhone}}</td>
+    </tr>
+    <tr>
+        <th scope="row">가게 이름<br></th>
+        <td>{{profiles.StoreName}}</td>
+    </tr>
+    <tr>
+        <th scope="row">가게 번호</th>
+        <td>{{profiles.StorePhone}}</td>
+    </tr>
+    <tr>
+        <th scope="row">가게 주소</th>
+        <td>{{profiles.StoreAddress}}</td>
+    </tr>
+    <tr>
+        <th scope="row">가게 위도<br></th>
+        <td>{{profiles.Latitude}}</td>
+    </tr>
+    <tr>
+        <th scope="row">가게 경도</th>
+        <td>{{profiles.Longitude}}</td>
+    </tr>
+    <tr>
+        
+        <th scope="row">가게 ID</th>
+        {%for stores in store.all%}
+        <td>{{stores.id}}</td>
+        {%endfor%}
+    </tr>
+    </tbody>
+    {%endfor%}
+    
+<!--
+    <table class="type09">
+        <thead>
+        <tr>
+            <th scope="cols">타이틀</th>
+            <th scope="cols">내용</th>
+        </tr>
+        </thead>
+        <tbody>
+        {%for stores in store.all%}
+        <tr>
+            <th scope="row">메뉴추가</th>
+            <td>내용이 들어갑니다.</td>
+        </tr>
+        {%endfor%}
+        <tr>
+            <th scope="row">항목명</th>
+            <td>내용이 들어갑니다.</td>
+        </tr>
+        <tr>
+            <th scope="row">항목명</th>
+            <td>내용이 들어갑니다.</td>
+        </tr>
+        </tbody>
+    </table>
+</table>
+</body>
+</html>
+-->
+
+
+
+    <form method="POST" action="{%url 'Ownerpage'%}">
+            {%csrf_token%}
+            <table class="type09">
+                    <thead>
+                    <tr>
+                        <th scope="cols">메뉴 추가</th>
+                        <th scope="cols"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {%for stores in store.all%}
+                    <tr>
+                        <th scope="row">메뉴 이름</th>
+                        <td><input type="text" name="Cmenu" value="" required></td>
+                    </tr>
+                    {%endfor%}
+                    <tr>
+                        <th scope="row">메뉴 가격</th>
+                        <td><input type="number" name="Cprice" value="" required></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"style="color:blue;">(URL)<div class="ab"style="float: left;">메뉴 이미지</div></th>
+                        <td><input type="text" name="Cpicture" value=""><br><div class="bl">※메뉴 사진은는 http:// 형식으로<br>이미지 주소를 가져오세요!</div></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">분류</th>
+                        <td><select name="category"> 
+                            {%for a in default_category%}
+                                {%if category == a %}
+                                    <option value="{{a}}" selected="selected">{{a}}</option>
+                                {%else%}
+                                    <option value="{{a}}">{{a}}</option>
+                                {%endif%}
+                            {%endfor%}{{error}}<br>
+                            <input type="submit" value="추가하기">
+                        </select></td>
+                    </form>
+                    </tr>
+                    <tr>
+                    <th scope="row">메뉴 수정</th>
+                    <form method="POST" action="{%url 'Update'%}">
+                        <td>{%csrf_token%}
+                                {%for foodmenus in foodmenu.all%}
+                                    고유ID : {{foodmenus.id}}<br>
+                                    메뉴 : <input type="text" name="a{{foodmenus.id}}" value="{{foodmenus.Menu}}" required><br> 
+                                    가격 : <input type="number" name="b{{foodmenus.id}}" value="{{foodmenus.Price}}" required><br>
+                                    사진 : <input type="text" name="d{{foodmenus.id}}" value="{{foodmenus.Foodurl}}" ><br>
+                                    
+                                    분류 : <select name="c{{foodmenus.id}}"><br>
+                                    {%for a in default_category%}
+                                        {%if foodmenus.Category in a %}
+                                            <option value="{{a}}" selected="selected">{{a}}</option>
+                                        {%else%}
+                                            <option value="{{a}}">{{a}}</option>
+                                        {%endif%}
+                                    {%endfor%}
+                                    </select><br><br>
+                                {%endfor%}
+                                    <input type="submit" value="수정하기">
+                                </form><br>
+                                
+                                {%for foodmenus in foodmenu.all%}
+                                <form method="POST" action="{%url 'Delete'%}">
+                                        {%csrf_token%}
+                                    <input type="text" name="a{{foodmenus.id}}" value="{{foodmenus.Menu}}" required>
+                                    <input type="submit" value="메뉴삭제하기">
+                                </form>
+                                {%endfor%}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </table>
+    
+    </div>
+    <br> <br><br><br><br><br>
+    <div id="s_right"></div>
+
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,871 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+    <script>
+    var mylatitude, mylongitude;
+    
+    
+
+    function goto() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                //alert("현재 위치로 설정되었습니다!!");
+                //document.getElementById("checking").innerHTML = "설정 완료"
+                document.getElementById("latitude").value = position.coords.latitude; //set_location()���� ������ ������Ʈâ �ȶ߰� �ϱ� ���ؼ�
+                document.getElementById("longitude").value = position.coords.longitude;
+        }, function(error) {
+                console.error(error);
+        }, {
+                enableHighAccuracy: true,
+                maximumAge: 0,
+                timeout: 10000
+            });
+        } else {
+            alert('GPS�� �������� �ʽ��ϴ�');
+        }
+    }
+
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+                                'Error: The Geolocation service failed.' :
+                                'Error: Your browser doesn\'t support geolocation.');
+            infoWindow.open(map);
+        }
+
+        function metter_up(){ //metter ���� ���� ��� 0.1 ���� (100M)
+        
+            var my_map_latitude = document.getElementById("latitude").value;
+            var my_map_longitude = document.getElementById("longitude").value;
+            //if(my_map_latitude=="" || my_map_longitude==""){
+            //    alert("'현재 위치로 설정'을 클릭하여 자신의 위치를 설정해주세요!!");
+            //} else {
+                var a = document.getElementById("pre_radius").value;
+                document.getElementById("pre_radius").value = Math.round((parseFloat(a) + 0.1)*1e12) / 1e12; //�̰� �� ������  0.0000000 ���� �̻��� �� ���ͼ�
+                document.getElementById("check_for_radius").innerHTML = ""
+            //}
+        }
+
+    function metter_down(){ //metter ���� ���� ��� 0.1 ���� (100M) 0 �����δ� ���������� �����
+        var my_map_latitude = document.getElementById("latitude").value;
+        var my_map_longitude = document.getElementById("longitude").value;
+        //if(my_map_latitude=="" || my_map_longitude==""){
+        //    alert("'현재 위치로 설정'을 클릭하여 자신의 위치를 설정해주세요!!");
+        //} else {
+            if(document.getElementById("pre_radius").value<=0){
+                document.getElementById("pre_radius").value = 0;
+            } else {
+                var a = document.getElementById("pre_radius").value;
+                document.getElementById("pre_radius").value = Math.round((parseFloat(a) - 0.1)*1e12) / 1e12; //�̰� �� ������  0.0000000 ���� �̻��� �� ���ͼ�
+                document.getElementById("check_for_radius").innerHTML = ""
+            }
+        //}
+    }
+
+    function kilometter_up(){ //kilomettermetter ���� ���� ��� 1 ���� (1K)
+        var my_map_latitude = document.getElementById("latitude").value;
+        var my_map_longitude = document.getElementById("longitude").value;
+        //if(my_map_latitude=="" || my_map_longitude==""){
+        //    alert("'현재 위치로 설정'을 클릭하여 자신의 위치를 설정해주세요!!");
+        //} else {
+            var a = document.getElementById("pre_radius").value;
+            document.getElementById("pre_radius").value = parseFloat(a) + 1;
+            document.getElementById("check_for_radius").innerHTML = ""
+        //}
+    }
+
+  function kilometter_down(){ //kilomettermetter ���� ���� ��� 1 ���� (1K) 0 �����δ� ���������� �����
+        var my_map_latitude = document.getElementById("latitude").value;
+        var my_map_longitude = document.getElementById("longitude").value;
+        //if(my_map_latitude=="" || my_map_longitude==""){
+            alert("'현재 위치로 설정'을 클릭하여 자신의 위치를 설정해주세요!!");
+        //} else {
+            var a = document.getElementById("pre_radius").value;
+            if(document.getElementById("pre_radius").value-1<=0){ // 0.8���� 1���� 0������ �Ϸ���
+                document.getElementById("pre_radius").value = 0;
+            }else {
+                document.getElementById("pre_radius").value = Math.round((parseFloat(a) - 1)*1e12) / 1e12; //�̰� �� ������  0.0000000 ���� �̻��� �� ���ͼ�
+                document.getElementById("check_for_radius").innerHTML = ""
+            }
+        //}
+    }
+
+    function money(){
+        document.getElementById("lessprice").value = document.getElementById("pre_lessprice").value;
+        document.getElementById("highprice").value = document.getElementById("pre_highprice").value;
+        document.getElementById("check_for_money").innerHTML = "설정완료"
+    }
+
+    function radiusset(){
+        document.getElementById("radius").value = document.getElementById("pre_radius").value;
+        document.getElementById("check_for_radius").innerHTML = "설정완료"
+    }
+
+    </script>
+<style>
+    
+
+    html{
+    background-color: rgba(0, 0, 0, 0.541);
+    font-family:TmonMonsori;
+    }
+
+    body{
+        width: 100%;
+        text-align: center;    
+    }
+
+    * {margin:0;padding:0;list-style: none;}
+    
+    /*.pulse{
+    display:block;
+    text-align:center;
+    }*/
+
+    .checklist{
+        margin-left:10px;
+    }
+
+    .unshown{
+    display:none;
+    }
+
+    [type=radio] { 
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    }
+
+    [type=radio] + img {
+    padding:1px;
+    cursor: pointer;
+    }
+
+    [type=radio]:checked + img {
+  border-radius: 5px;
+  box-shadow: inset 0px 0px 2px 2px rgba(0, 0, 0, 0.9);
+    }
+
+    #nav_money_min{
+    padding:5% 0;
+    color:white;
+    }
+
+    #nav_money_max{
+        padding-bottom:5%;
+        color:white;
+    }
+
+    #nav_radius{
+        padding:5% 0;
+    }
+    
+    #nav_radius_table_div{
+        text-align: center;
+    }
+
+    table#nav_radius_table{
+        display:inline-block;
+        border-color:white;
+        border-style: solid;
+    }
+
+    form #doradom{
+    display:block;
+    }
+
+    .check_show{
+        color:yellowgreen;
+    }
+
+    input[type=checkbox] {
+        /*transform:Scale(100%);*/
+        min-height:100%;
+        min-width:100%;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+        -webkit-appearance: none;
+        outline: 0;
+        display: inline-block;
+        -webkit-transition:filter 1s, -webkit-transform 1s;
+        transition:filter 1s, transform 1s;
+        border-style: solid;
+    }
+
+
+    input[type=checkbox]:not(:checked){
+        background-size:cover;
+        filter: grayscale(0%);
+        -webkit-filter: grayscale(0%);
+    }
+
+    input[type=checkbox]:checked{
+        background-size:cover;
+        filter: grayscale(0%);
+        -webkit-filter: grayscale(0%);
+        border-color: #f47a20;
+        border-width: 2px;
+    }
+
+    #checkone input[type=checkbox]:not(:checked) {
+        background-color:white;
+        background-size: contain;
+        background-image: url("{%static 'ex5.png'%}");
+    }
+
+    #checkone input[type=checkbox]:checked {
+        background-color:white;
+        background-size: contain;
+        background-image: url("{%static 'ex5.png'%}");
+    }
+
+    #checktwo input[type=checkbox]:not(:checked) {
+        background-color:white;
+        background-size: contain;
+        background-image: url("{%static 'ex2.png'%}");
+    }
+
+    #checktwo input[type=checkbox]:checked {
+        background-color:white;
+        background-size: contain;
+        background-image: url("{%static 'ex2.png'%}");
+    }
+
+    #checkthree input[type=checkbox]:not(:checked) {
+        background-color:white;
+        background-size: contain;
+        background-image: url("{%static 'ex3.png'%}");
+    }
+
+    #checkthree input[type=checkbox]:checked {
+        background-color:white;
+        background-size: contain;
+        background-image: url("{%static 'ex3.png'%}");
+    }
+
+    #checkfour input[type=checkbox]:not(:checked) {
+        background-color:white;
+        background-size: contain;
+        background-image: url("{%static 'ex6.png'%}");
+    }
+
+    #checkfour input[type=checkbox]:checked {
+        background-color:white;
+        background-size: contain;
+        background-image: url("{%static 'ex6.png'%}");
+    }
+
+    #checkfive input[type=checkbox]:not(:checked) {
+        background-color:white;
+        background-size: contain;
+        background-image: url("{%static 'ex8.png'%}");
+    }
+
+    #checkfive input[type=checkbox]:checked {
+        background-color:white;
+        background-size: contain;
+        background-image: url("{%static 'ex8.png'%}");
+    }
+
+    #checksix input[type=checkbox]:not(:checked) {
+        background-color:white;
+        background-size: contain;
+        background-image: url("{%static 'ex10.png'%}");
+    }
+
+    #checksix input[type=checkbox]:checked {
+        background-color:white;
+        background-size: contain;
+        background-image: url("{%static 'ex10.png'%}");
+    }
+
+    #checkseven input[type=checkbox]:not(:checked) {
+        background-color:white;
+        background-size: contain;
+        background-image: url("{%static 'ex9.png'%}");
+    }
+
+    #checkseven input[type=checkbox]:checked {
+        background-color:white;
+        background-size: contain;
+        background-image: url("{%static 'ex9.png'%}");
+    }
+
+    #checkeight input[type=checkbox]:not(:checked) {
+        background-color:white;
+        background-size: contain;
+        background-image: url("{%static 'ex7.png'%}");
+    }
+
+    #checkeight input[type=checkbox]:checked {
+        background-color:white;
+        background-size: contain;
+        background-image: url("{%static 'ex7.png'%}");
+    }
+
+    #checknine input[type=checkbox]:not(:checked) {
+        background-color:white;
+        background-size: contain;
+        background-image: url("{%static 'ex11.png'%}");
+    }
+
+    #checknine input[type=checkbox]:checked {
+        background-color:white;
+        background-size: contain;
+        background-image: url("{%static 'ex11.png'%}");
+    }
+
+    #checkten input[type=checkbox]:not(:checked) {
+        background-color:white;
+        background-size: contain;
+        background-image: url("{%static 'ex4.png'%}");
+    }
+
+    #checkten input[type=checkbox]:checked {
+        background-color:white;
+        background-size: contain;
+        background-image: url("{%static 'ex4.png'%}");
+    }
+
+    #checkelev input[type=checkbox]:not(:checked) {
+        background-color:white;
+        background-size: contain;
+        background-image: url("{%static 'ex1.png'%}");
+    }
+
+    #checkelev input[type=checkbox]:checked {
+        background-color:white;
+        background-size: contain;
+        background-image: url("{%static 'ex1.png'%}");
+    }
+
+    #checktwel input[type=checkbox]:not(:checked) {
+        background-color:white;
+        background-size: contain;
+        background-image: url("{%static 'ex12.png'%}");
+    }
+
+    #checktwel input[type=checkbox]:checked {
+        background-color:white;
+        background-size: contain;
+        background-image: url("{%static 'ex12.png'%}");
+    }
+
+    .orange {
+        color: #fef4e9;
+        border: solid 1px #da7c0c;
+        background: #f47c20;
+        background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
+        background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
+        filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+    }
+    .orange:hover {
+        background: #f47c20;
+        background: -webkit-gradient(linear, left top, left bottom, from(#f88e11), to(#f06015));
+        background: -moz-linear-gradient(top,  #f88e11,  #f06015);
+        filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f88e11', endColorstr='#f06015');
+    }
+    .orange:active {
+        color: #fcd3a5;
+        background: -webkit-gradient(linear, left top, left bottom, from(#f47a20), to(#faa51a));
+        background: -moz-linear-gradient(top,  #f47a20,  #faa51a);
+        filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f47a20', endColorstr='#faa51a');
+    }
+
+    .container1{
+    float:left;
+    height:100%;
+    width:20%;
+    background-color: gray;
+    }
+
+    .container2{    
+        display: inline-block;
+        width:35%;
+    }
+
+    .container3{
+    float:left;
+    background-color: gray;
+    }
+    
+    .button {
+        position: fixed;
+        display: inline-block;
+        right:50%;
+        transform: translate(50%, 50%);
+        bottom: 80px;
+        width:200px;
+        outline: none;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        font: 14px/100% TmonMonsori, TmonMonsori, TmonMonsori;
+        padding: 1em 2em 1em;
+        text-shadow: 0 1px 1px rgba(0,0,0,.3);
+        -webkit-border-radius: .5em; 
+        -moz-border-radius: .5em;
+        border-radius: .5em;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+        -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+        box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    }
+    .button:hover {
+        text-decoration: none;
+    }
+    .button:active {
+        position: fixed;
+        display:inline-block;
+        bottom: 80px;
+    }
+
+    #error_message{
+    border-style: none;
+    border-color:black;
+    text-align:center;
+    color:black;
+    background-color:snow;
+    margin-bottom:7px;
+    margin-top:7px;
+    }
+
+    html{
+    background-color: white;
+    font-family:TmonMonsori;
+    }
+
+    input[type=checkbox] {
+        /*transform:Scale(100%);*/
+        min-height:100%;
+        min-width:100%;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+        -webkit-appearance: none;
+        outline: 0;
+        display: inline-block;
+        -webkit-transition:filter 1s, -webkit-transform 1s;
+        transition:filter 1s, transform 1s;
+        border-style: solid;
+        border-width: 0px;
+    }
+
+    .help{
+    text-align:center;
+    color: #f47a20;
+    }
+
+    #category_label{
+    background-color:white;
+    padding:10px;
+    font-size:20px;
+    text-align: center;
+    margin-bottom:0px;
+    }
+
+    .navbar {
+    width:100%;
+    margin: 0 0;
+    margin-bottom: 0%;
+    border-left-style:none;
+    border-right-style:none;
+    overflow: hidden;
+    display:table;
+    text-align:center;
+    height:9%;
+    border-style:solid;
+    border-top-style:none;
+    border-color:rgb(228, 228, 220);
+    border-width: thick;
+    background: -webkit-linear-gradient(to right, #f47a20, rgb(244, 122, 32), #f47a20);  
+    background: linear-gradient(to right, #f47a20, rgb(244, 122, 32), #f47a20);
+    }
+
+    .container{
+    height:100%;
+    width:100%;
+    color: black;
+    }
+
+    /*.view{
+    height:600px;
+    width:430px;
+    }* */
+
+    /*.checklist{
+    height:100%;
+    width:100%;
+    transform: rotate(0);
+    /* overflow-y:scroll;
+    overflow-x:hidden; 
+    background-color: white;
+    }*/
+
+    .ul{
+    width:200px;
+    }
+
+    li{
+    display:block;
+    float:left;
+    width:32.8%;
+    height:150px;
+    line-height: 50px;
+    text-align: center;
+    border-color:ivory;
+    border-style:none;
+    border-width:thin;
+    }
+
+    .select{
+        position:absolute;
+        width:50%;
+        background-color: skyblue;
+        height:100%;
+        background-size:cover;
+    }
+    .cost{
+        position:absolute;
+        width:50%;
+        background-color: lightblue;
+        height:100%;
+        background-size:cover;
+    }
+
+    #foodpage{
+        display:block;
+        width:100%;
+        text-align:center;
+        height:100%;
+        position: relative;
+        -webkit-transition:background-color 1s, -webkit-transform 1s;
+        transition:background-color 1s, transform 1s;
+    }
+
+    #foodpage:hover {
+        background-color:rgba(0, 0, 0, 0.181);
+        /*-webkit-transform:rotate(180deg);
+        transform:rotate(180deg);*/
+    }
+
+    .navbar a {
+        float: left;
+        font-size: 20px;
+        color: black;
+        text-align: center;
+        padding: 20px 12px;
+        text-decoration: none;
+        -webkit-transition:background-color 1s, -webkit-transform 1s;
+        transition:background-color 1s, transform 1s;
+    }
+
+    .subnav {
+        float: left;
+        overflow: hidden;
+    }
+
+    .subnav_right{
+    float: right;  /*여기다름*/
+    overflow: hidden;
+    }
+
+
+    .subnav_right .subnavbtn {
+        font-size: 16px;  
+        border: none;
+        outline: none;
+        color: black;
+        padding: 20px 16px;
+        background-color: inherit;
+        font-family: inherit;
+        margin: 0;
+        -webkit-transition:background-color 1s, -webkit-transform 1s;
+        transition:background-color 1s, transform 1s;
+    }
+
+    .subnav .subnavbtn {
+        font-size: 16px;  
+        border: none;
+        outline: none;
+        color: rgb(255, 255, 255);
+        padding: 20px 16px;
+        background-color: inherit;
+        font-family: inherit;
+        margin: 0;
+        -webkit-transition:background-color 1s, -webkit-transform 1s;
+        transition:background-color 1s, transform 1s;
+    }
+
+    .navbar a:hover, .subnav:hover .subnavbtn, .subnav_right:hover .subnavbtn{
+        background-color: white;
+    }
+
+    .subnav-content {
+        position: fixed;
+        display:none;
+        float:right;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.575);
+        z-index: 1;
+    }
+
+
+    .subnav-content a {
+        display:block;
+        float: initial;
+        color: white;
+        text-decoration: none;
+    }
+
+    .subnav-content a:hover {
+        background-color: #eee;
+        color: black;
+        display:block;
+        
+    }
+
+    .subnav:hover .subnav-content, .subnav_right:hover .subnav-content {
+    display: block;
+    }
+
+    .subnav:hover .subnav-content .subnav:active {
+        display: block;
+        float: left;    
+    }
+
+    .subnav_right:hover .subnav-content {
+        
+    }
+    .mybutton{
+        display :flex;
+        flex-direction : column;
+        align-items : flex-end;
+    }
+    
+    @font-face { font-family: 'TmonMonsori'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/TmonMonsori.woff') format('woff'); font-weight: normal; font-style: normal; }
+
+    @media screen and (max-width:800px){
+        .container2{    
+        display: inline-block;
+        width:100%;
+        }
+
+        .button {
+        position: fixed;
+        display: inline-block;
+        transform: translate(50%, -50%);
+        bottom: 10px;
+        right:50%;
+        width:200px;
+        outline: none;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        font: 14px/100% TmonMonsori, TmonMonsori, TmonMonsori;
+        padding: 1em 2em 1em;
+        text-shadow: 0 1px 1px rgba(0,0,0,.3);
+        -webkit-border-radius: .5em; 
+        -moz-border-radius: .5em;
+        border-radius: .5em;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+        -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+        box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    }
+
+    .button:active {
+        bottom: 10px;
+    }
+
+    .subnav-content {
+        position: absolute;
+        float:left;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.575);
+        z-index: 1;
+    }
+
+
+    .subnav-content a {
+        float: unset;
+        color: white;
+        text-decoration: none;
+        width:150px;
+        text-align: center;
+    }
+
+    }
+
+</style>
+    
+
+</head>
+<body>
+    <!--랜덤 고르기 기능-->
+    <div class="container2">
+    <div class="navbar">
+            <a href="/">야먹자</a>
+            <div class="subnav">
+              <button class="subnavbtn">가격<i class="fa fa-caret-down"></i></button>
+              <div class="subnav-content">
+                    <div id="nav_money_min">최소 금액 : <input id="pre_lessprice" type="number" name="pre_lessprice" required value="{{lessprice_session}}" style="width:60%;"/><br> </div> 
+                    <div id="nav_money_max">최대 금액 : <input id="pre_highprice" type="number" name="pre_highprice" required value="{{highprice_session}}" style="width:60%;"/><br> </div>
+                    <div class="check_show" id="check_for_money"></div>
+                    <input style="margin-bottom:5%;" type="button" value="금액설정" onclick="money()" />
+              </div>
+            </div>
+            <div class="subnav">
+                <button class="subnavbtn">범위<i class="fa fa-caret-down"></i></button>
+                <div class="subnav-content">
+                    <div id="nav_radius">범위 : <input style="width:30%;" id="pre_radius" type="number" onkeyup="imsi(this)" step="0.1" name="pre_radius" value="{{radius_session}}" required style="width:60%" /> KM<br></div>
+                    <div id="nav_radius_table_div">
+                        <table id="nav_radius_table"> 
+                            <tr>
+                                <td>100M</td>
+                                <td><input type="button" value="▲" onclick="metter_up()"/><br><input type="button" value="▼" onclick="metter_down()"/></td>
+                                <td>1KM</td>
+                                <td><input type="button" value="▲" onclick="kilometter_up()"/><br><input type="button" value="▼" onclick="kilometter_down()"/></td>
+                            </tr>
+                        </table><br>
+                    </div>
+                    <div class="check_show" id="check_for_radius"></div>
+                    <input style="margin-bottom:5%;" type="button" value="범위설정" onclick="radiusset()" />
+                </div>
+              </div>
+            {%if user.is_authenticated%}
+            <div class="subnav_right">
+              <button class="subnavbtn">내정보<i class="fa fa-caret-down"></i></button>
+                <div class="mybutton">
+              <div class="subnav-content">
+                <a href="/Ownerpage">마이페이지</a>
+                <form id="logouting" method="POST" action="{%url 'Logout'%}">
+                        {%csrf_token%}
+                        <a href="#" onclick="document.getElementById('logouting').submit()">로그아웃</a>
+                </form>
+              </div>
+                </div>
+            </div> 
+            {%else%}
+            <div class="subnav_right">
+                    <button class="subnavbtn">MY<i class="fa fa-caret-down"></i></button>
+                    <div class="mybutton">
+                    <div class="subnav-content">
+                        <a href="/Login">로그인</a>
+                        <a href="/Findpassword">비밀번호찾기</a>
+                        <a href="/Signup">회원가입</a>
+                    </div>
+                    </div>
+                  </div> 
+            {%endif%}
+          </div>
+
+    <!--<div class="as_nav_bar">
+        <a class="" href="">
+            ★
+        </a>
+        <a class="" href="">
+            ★
+        </a>
+        <a class="main_title" href="">
+            YA<br>MUCK ZA
+        </a>
+        <a class="" href="">
+            ★
+        </a>
+        <a class="" href="">
+            ★
+        </a>
+    </div>-->
+    <div class="container">
+        <div id="category_label"> 분류 선택 </div>
+    <form id="doradom" action="{%url 'Fselect'%}" method="POST">
+        
+        <div id="foodpage">
+            <div class="pulse">
+                <div class="view">
+                    <div class="checklist" >
+                            <ul>
+                                <li id="checkone"><input type="checkbox" name="check1" value="한식" {{check_for_checked1}}/></li>
+                                <li id="checktwo"><input type="checkbox" name="check2" value="중식" {{check_for_checked2}}/></li>
+                                <li id="checkthree"><input type="checkbox" name="check3" value="일식" {{check_for_checked3}}/></li>
+                                <li id="checkfour"><input type="checkbox" name="check4" value="양식" {{check_for_checked4}}/></li>
+                                <li id="checkfive"><input type="checkbox" name="check5" value="분식" {{check_for_checked5}}/></li>
+                                <li id="checksix"><input type="checkbox" name="check6" value="치킨" {{check_for_checked6}}/></li>
+                                <li id="checkseven"><input type="checkbox" name="check7" value="보쌈" {{check_for_checked7}}/></li>
+                                <li id="checkeight"><input type="checkbox" name="check8" value="햄버거" {{check_for_checked8}}/></li>
+                                <li id="checknine"><input type="checkbox" name="check9" value="피자" {{check_for_checked9}}/></li>
+                                <li id="checkten"><input type="checkbox" name="check10" value="돈가스" {{check_for_checked10}}/></li>
+                                <li id="checkelev"><input type="checkbox" name="check11" value="떡볶이" {{check_for_checked11}}/></li>
+                                <li id="checktwel"><input type="checkbox" name="check12" value="세계음식" {{check_for_checked12}}/></li>
+                            </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {%csrf_token%}
+        <br>
+        <div style="text-align:-webkit-center">
+        <input class="unshown" id="latitude" type="number" step=any name="latitude" value={{latitude_session}} /> <!--안보이게 설정-->
+        <input class="unshown" id="longitude" type="number" step=any name="longitude" value={{longitude_session}} /> <!--안보이게 설정-->
+        <!--
+        <label>
+            <input id="getenable" type="radio" name="chk_info" value="checked" onclick="goto()" {{chk_info_session}}> 오류 나왔을 때 checked 유지
+            <img src="{%static 'gps.png'%}"><br>
+        현재위치로 설정
+        </label>-->
+
+        
+        <input class="unshown" id="radius" type="number" onkeyup="imsi(this)" step="0.1" name="radius" value="{{radius_session}}" required style="width:60%" />
+        <input class="unshown" id="lessprice" type="number" name="lessprice" required value="{{lessprice_session}}" style="width:60%;"/>
+        <input class="unshown" id="highprice" type="number" name="highprice" required value="{{highprice_session}}" style="width:60%;"/>
+        <input class="button orange" type="submit" value="랜덤돌리기"/><br>
+    
+    </form>
+        </div>
+    </div>
+    <br>
+    <div id="error_message">{{message | linebreaks}}</div><br>
+    <br>
+    <p><p><p>
+    <br>
+    <br>
+</body>
+<script>
+var bbbb = document.getElementById("latitude").value;
+    
+if (bbbb == null || bbbb == ""){
+
+    var retVal = confirm("야먹자 앱이 사용자의 현재위치를 참조해도 될까요?");
+    if( retVal == true ){
+        if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                //alert("현재 위치로 설정되었습니다!!");
+                //document.getElementById("checking").innerHTML = "설정 완료"
+                document.getElementById("latitude").value = position.coords.latitude; //set_location()���� ������ ������Ʈâ �ȶ߰� �ϱ� ���ؼ�
+                document.getElementById("longitude").value = position.coords.longitude;
+        }, function(error) {
+                console.error(error);
+        }, {
+                enableHighAccuracy: true,
+                maximumAge: 0,
+                timeout: 10000
+    });} else {
+            alert('GPS를 잡을 수 없습니다...');
+            window.location.href = "/";
+        }
+
+    } else {
+        window.location.href = "/";
+        alert("알겠습니다...");
+    }
+}
+        </script>
+        </div>
+</html>
