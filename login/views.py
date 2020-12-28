@@ -47,7 +47,6 @@ def signup(request):
             "readonly":request.session.get('readonly', ""),
         }
 
-    print(request.session.get('count', ""))
     if request.method == "POST" and 'signupforme' in request.POST:
         if request.session.get('count', "0") != 1: #중복검사를 하지 않았을 경우!!
             request.session['count'] = 0
@@ -130,7 +129,6 @@ def signup(request):
             content["usernameerror"]="중복한 아이디가 존재 합니다!"
         else:
             request.session['count'] = 1
-            print(request.session.get('count', ""))
             request.session['readonly']="readonly"
             content["readonly"]=request.session.get('readonly', "")
             content["usernameerror"]="사용가능한 아이디 입니다!"
@@ -166,8 +164,7 @@ def findpassword(request): #비밀번호 찾기
         )
 
         phonenumber=str(request.POST.get("ownerphone1")) + "-" + str(request.POST.get("ownerphone2")) + "-" + str(request.POST.get("ownerphone3"))
-        print(phonenumber)
-
+        
         finduser=Profile.objects.get(
            user__username=request.POST.get('userid'), #다른 곳을 참조할때는 가져올라면 __해야되는구나!!
            OwnerName=request.POST.get('ownername'),

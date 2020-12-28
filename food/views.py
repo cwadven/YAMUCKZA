@@ -61,8 +61,6 @@ def Fselect(request):
     
     request.session['Check_category'] = Check_category
 
-    print(request.session.get('Check_category', False))
-
     #default_category = ["한식", "중식", "일식", "양식", "분식", "치킨", "고기", "햄버거"] #기준을 잡아서 session해주려고
     default_category = ["한식", "중식", "일식", "양식", "분식", "치킨", "보쌈", "햄버거", "피자", "돈가스", "떡볶이", "세계음식"]
     #none_category = ["N", "N", "N", "N", "N", "N", "N", "N"]
@@ -76,8 +74,6 @@ def Fselect(request):
 
     #Check_category 안에 선택한 분류들이 리스트로 들어가있음
     if request.method == "GET": #get일 경우 세션에서 남아있는녀석을 이용
-        print(request.session.get('lessprice', False))
-        print(request.session.get('highprice', False))
         pass
     else:
         request.session['chk_info'] = request.POST.get('chk_info') #현재 위치 채크 했는지 확인후 세션으로 가져오기
@@ -105,7 +101,6 @@ def Fselect(request):
             foodGetit.append(foods.Menu)
             storeGetit.append(foods.StoreName)
 
-    print(foodGetit)
     Randomlength = len(foodGetit) #집어넣은 리스트안의 크기를 조사해서 랜덤을 돌릴 값을 결정한다.
 
             ########## 오류일 경우 #####################
@@ -174,8 +169,6 @@ def Fselect(request):
     storelocation = Store.objects.get(id=SelectedStore) #get은 하나의 녀석을 가져올때 가져온다 filter는 레코드가 많을경우... 가게 위도 경도 가져오려고
     me_to_store = find_distance(request.session.get('latitude', False),request.session.get('longitude', False),storelocation.Latitude,storelocation.Longitude) #걸린 가게의 나와의 문제
     distance_metter=int(me_to_store*1000) #지도를 위한 정보들
-    
-    print(distance_metter)
 
     if(distance_metter>=3200): #지도의 보는 거리를 원에 따라서 설정하려고함!
         zoom=7
