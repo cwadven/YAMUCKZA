@@ -88,7 +88,7 @@
 
 👤 왕희승 (팀장)
 
-- Github : https://github.com/cwadven
+- Github : https://github.com/aweking
 - 작업 : 프로젝트 아이디어 제공 및 식당, 음식, 위치, 가격 정보 수집
 - 기술스택 : Excel
 - 개발기간 :
