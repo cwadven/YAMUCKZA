@@ -23,8 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', food.views.main, name="main"),
     path('Fmenu/', food.views.Fmenu, name="Fmenu"),
-    path('Dmenu/', food.views.Dmenu, name="Dmenu"),
-    path('DSelectFood/', food.views.Dselect, name="Dselect"),
     path('SelectFood/', food.views.Fselect, name="Fselect"),
     path('Signup/', login.views.signup, name="Signup"),
     path('Findpassword/', login.views.findpassword, name="Findpassword"),
