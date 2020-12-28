@@ -97,8 +97,10 @@
 👤 왕희승 (팀장)
 
 - Github : https://github.com/aweking
-- 작업 : 프로젝트 아이디어 제공 및 식당, 음식, 위치, 가격 정보 수집
-- 기술스택 : Excel
+- 작업 : 
+    - 프로젝트 아이디어 제공 및 식당, 음식, 위치, 가격 정보 수집
+- 기술스택 :
+    - Excel
 - 개발기간 :
     - 2019-08-29 ~ 2019-11-16
 
@@ -107,8 +109,10 @@
 👤 은휴
 
 - Github : https://github.com/agustd0423
-- 작업 : 이미지 및 디자인 UI 및 아이콘 수집
-- 기술스택 : PhotoShop
+- 작업 : 
+    - 이미지 및 디자인 UI 및 아이콘 수집
+- 기술스택 : 
+    - PhotoShop
 - 개발기간 :
     - 2019-08-29 ~ 2019-11-16
 
@@ -117,8 +121,16 @@
 👤 이창우 (부팀장)
 
 - Github : https://github.com/cwadven
-- 작업 : Django 프로젝트 기본 기반 설정, DB 테이블 구축, Javascript로 작동하는 모든 것 구현 , Naver 지도 API 시각적 요소 소스코드 추가
-- 기술스택 : Django, Javascript, CSS, HTML
+- 작업 : 
+    - Django 프로젝트 기본 기반 설정
+    - DB 테이블 구축
+    - Javascript로 작동하는 모든 것 구현
+    - Naver 지도 API 시각적 요소 소스코드 추가
+- 기술스택 :
+    - Django
+    - Javascript
+    - HTML
+    - CSS
 - 개발기간 :
     - 2019-08-29 ~ 2019-11-16
 
@@ -126,16 +138,24 @@
 👤 정현지
 
 - Github : https://github.com/hyeonji0409
-- 작업 : XML 디자인 및 레이어 작업
-- 기술스택 : HTML, CSS
+- 작업 : 
+    - XML 디자인 및 레이어 작업
+- 기술스택 :
+    - HTML
+    - CSS
 - 개발기간 :
     - 2019-08-29 ~ 2019-11-16
 
 👤 진형빈
 
 - Github : https://github.com/gudqls5812
-- 작업 : Naver 지도 API 사용, 디자인 UI, UX 설정 및 Django 보조
-- 기술스택 : HTML, Javascript
+- 작업 :
+    - Naver 지도 API 사용
+    - 디자인 UI, UX 설정
+    - Python 보조
+- 기술스택 : 
+    - HTML
+    - Javascript
 - 개발기간 :
     - 2019-08-29 ~ 2019-11-16
 
