@@ -72,6 +72,14 @@
 해당 가게의 다른 메뉴들 까지 볼 수가 있다.
 ~~~
 
+<p align="center">
+<img alt="YAMUCKZA" src="https://github.com/cwadven/YAMUCKZA/blob/master/assets/Map.PNG"/>
+</p>
+
+~~~
+만약 네이버 지도를 이용해서 봤을 경우 이렇게 보인다.
+~~~
+
 <h3 align="center">[[사장 페이지(MyPage)]]</h3>
 <p align="center">
 <img alt="YAMUCKZA" src="https://github.com/cwadven/YAMUCKZA/blob/master/assets/my_page.PNG"/>

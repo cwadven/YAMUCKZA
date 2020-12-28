@@ -303,7 +303,6 @@ def deleteMenu(request):
     for delete in foodmenu:
         a = request.POST.get("a"+str(delete.id))
         if(delete.Menu==a): #int로 안바꿔져서 차라리 id를 str로 바꿈
-            print("a")
             deleteMenu = Foodmenu.objects.get(id=delete.id)
             deleteMenu.delete()
             break
