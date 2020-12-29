@@ -118,7 +118,7 @@
 
 ## 개발자 👨‍💻
 
-👤 이창우 (부팀장)
+👤 이창우[메인 개발] (부팀장)
 
 - Github : https://github.com/cwadven
 - 작업 : 
