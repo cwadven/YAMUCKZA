@@ -159,6 +159,17 @@
 - 개발기간 :
     - 2019-08-29 ~ 2019-11-16
 
+## 환경 구축
+
+~~~
+1. python -m venv myvenv (가상환경 생성)
+2. python source myvenv/Script/activates (가상환경 실행)
+3. pip install -r requirements.txt (의존성 모듈 설치)
+4. python manage.py collectstatic (static 파일 생성)
+8. python manage.py migrate (테이블 생성)
+9. python manage.py createsuper (관리자 id 생성)
+10. python manage.py runserver
+~~~
 
 ## 2020-12-29 README.md 작성하는 내가 바라보는 프로젝트 코드
 
